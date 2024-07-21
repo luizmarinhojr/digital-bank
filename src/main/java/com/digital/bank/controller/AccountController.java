@@ -3,6 +3,7 @@ package com.digital.bank.controller;
 import com.digital.bank.domain.account.AccountDtoInput;
 import com.digital.bank.domain.account.AccountDtoOutput;
 import com.digital.bank.domain.account.AccountService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ public class AccountController {
     private AccountService service;
 
     @PostMapping
+    @Operation(summary = "Register customer account", description = "Only managers and administrator can register an account")
     @Transactional
     public ResponseEntity<URI> register(@PathVariable("customer_id") String customerId,
                                         @RequestBody AccountDtoInput accountInput) {
