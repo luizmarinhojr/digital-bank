@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -38,6 +40,7 @@ public class Customer {
 
     @OneToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @Setter
     private Address address;
 
     @OneToOne
@@ -45,10 +48,9 @@ public class Customer {
     @Setter
     private Account account;
 
-    @OneToOne
-    @JoinColumn(name = "card", referencedColumnName = "id")
+    @OneToMany(mappedBy = "customer")
     @Setter
-    private Card card;
+    private Set<Card> card = new HashSet<>();
 
     /*
     Constructor to add a Customer with User and Address.
@@ -59,5 +61,10 @@ public class Customer {
         this.lastName = customerInput.lastName();
         this.cellphone = customerInput.cellphone();
         this.address = address;
+    }
+
+
+    public void addCard(Card card) {
+        this.card.add(card);
     }
 }

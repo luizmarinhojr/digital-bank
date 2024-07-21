@@ -1,10 +1,12 @@
 package com.digital.bank.domain.account;
 
+import com.digital.bank.domain.card.Card;
 import com.digital.bank.domain.customer.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

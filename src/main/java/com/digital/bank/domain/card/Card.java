@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Random;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +30,21 @@ public class Card {
     @Column(nullable = false)
     private LocalDate dateExpiration;
 
-    @OneToOne(mappedBy = "card")
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    /*
+    Create a random Card
+     */
+    public Card(Customer customer) {
+        var random = new Random();
+        this.number = "";
+        for (int i = 0; i < 4; i++) {
+            this.number += String.valueOf(random.nextInt(1000,9999));
+        }
+        this.cvv = String.valueOf(random.nextInt(100,999));
+        this.dateExpiration = LocalDate.now().plusYears(3);
+        this.customer = customer;
+    }
 }

@@ -22,20 +22,25 @@ public class CustomerService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public CustomerDtoOutput describe(String id) {
-        try {
-            return customerRepository.findById(UUID.fromString(id))
-                    .map(CustomerDtoOutput::new)
-                    .orElseThrow(() -> new NotFoundException("Customer id not found"));
-        } catch(IllegalArgumentException ex) {
-            throw new NotFoundException(ex.getMessage());
-        }
-    }
 
     public CustomerDtoOutput register(CustomerDtoInput customerInput) {
         var user = userRepository.save(new User(customerInput.user()));
         var address = addressRepository.save(new Address(customerInput.address()));
         var customer = customerRepository.save(new Customer(customerInput, user, address));
         return new CustomerDtoOutput(customer);
+    }
+
+    public CustomerDtoOutput describe(String id) {
+        return customerRepository.findById(convertFromString(id))
+                .map(CustomerDtoOutput::new)
+                .orElseThrow(() -> new NotFoundException("Customer id not found"));
+    }
+
+    private UUID convertFromString(String id) {
+        try {
+            return UUID.fromString(id);
+        } catch(IllegalArgumentException ex) {
+            throw new NotFoundException("Customer id not found");
+        }
     }
 }

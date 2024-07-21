@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("customer/{id}/account")
+@RequestMapping("customer/{customer_id}/account")
 public class AccountController {
 
     @Autowired
@@ -19,8 +19,9 @@ public class AccountController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<URI> register(@PathVariable("id") String customerId, @RequestBody AccountDtoInput accountInput) {
+    public ResponseEntity<URI> register(@PathVariable("customer_id") String customerId,
+                                        @RequestBody AccountDtoInput accountInput) {
         AccountDtoOutput account = service.register(customerId, accountInput);
-        return ResponseEntity.created(URI.create("/account/" + account.id())).build();
+        return ResponseEntity.created(URI.create("/customer/" + customerId )).build();
     }
 }

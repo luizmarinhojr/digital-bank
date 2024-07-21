@@ -19,18 +19,18 @@ public class CustomerController {
     private CustomerService service;
 
     @PostMapping
-    @Operation(
-            summary = "Register a new Customer and User on System",
+    @Operation(summary = "Register a new Customer and User on System",
             description = "The user and the address are required to register a new Customer")
     @Transactional
-    public ResponseEntity register(@RequestBody CustomerDtoInput customerInput) {
+    public ResponseEntity<URI> register(@RequestBody CustomerDtoInput customerInput) {
         CustomerDtoOutput customer = service.register(customerInput);
         return ResponseEntity.created(URI.create("/customer/" + customer.id())).build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{customer_id}")
     @Operation(summary = "Describe Customer Data", description = "Like User, Address, name, Account...")
-    public ResponseEntity<CustomerDtoOutput> describe(@PathVariable("id") String id) {
-        return ResponseEntity.ok(service.describe(id));
+    public ResponseEntity<CustomerDtoOutput> describe(@PathVariable("customer_id") String customerId) {
+        return ResponseEntity.ok(service.describe(customerId));
     }
+
 }
