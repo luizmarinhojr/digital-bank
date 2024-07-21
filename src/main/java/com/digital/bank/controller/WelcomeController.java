@@ -1,5 +1,6 @@
 package com.digital.bank.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class WelcomeController {
 
     @GetMapping
+    @Operation(summary = "Home Page", description = "A welcome page to Digital Bank REST API")
     public String home() {
         return """
                 <h1>Welcome to Digital Bank Rest API</h1>
                 <p>Here you can do many requisitions to a bank prototype</p>
-                
                 <br>
                 <p>I hope you have fun and self learning with this. Good studies!</p>
                 <br>

@@ -2,11 +2,13 @@ package com.digital.bank.domain.customer;
 
 import com.digital.bank.domain.address.Address;
 import com.digital.bank.domain.account.Account;
+import com.digital.bank.domain.card.Card;
 import com.digital.bank.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
@@ -40,5 +42,22 @@ public class Customer {
 
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @Setter
     private Account account;
+
+    @OneToOne
+    @JoinColumn(name = "card", referencedColumnName = "id")
+    @Setter
+    private Card card;
+
+    /*
+    Constructor to add a Customer with User and Address.
+     */
+    public Customer(CustomerDtoInput customerInput, User user, Address address) {
+        this.user = user;
+        this.name = customerInput.name();
+        this.lastName = customerInput.lastName();
+        this.cellphone = customerInput.cellphone();
+        this.address = address;
+    }
 }

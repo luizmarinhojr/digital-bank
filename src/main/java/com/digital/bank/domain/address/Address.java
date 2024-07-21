@@ -45,4 +45,15 @@ public class Address {
 
     @OneToOne(mappedBy = "address")
     private Customer customer;
+
+    public Address(AddressDtoInput addressInput) {
+        this.cep = addressInput.cep();
+        this.street = addressInput.street();
+        this.number = addressInput.number();
+        this.complement = addressInput.complement();
+        this.neighborhood = addressInput.neighborhood();
+        this.city = addressInput.city();
+        this.state = addressInput.state();
+        this.country = addressInput.country();
+    }
 }

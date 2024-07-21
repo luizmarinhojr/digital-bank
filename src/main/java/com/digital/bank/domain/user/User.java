@@ -30,4 +30,10 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Customer customer;
+
+    public User(UserDtoInput userInput) {
+        this.cpf = userInput.cpf();
+        this.email = userInput.email();
+        this.password = userInput.password();
+    }
 }

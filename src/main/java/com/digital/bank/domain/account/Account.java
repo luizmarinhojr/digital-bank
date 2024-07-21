@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.UUID;
 
 @Entity
@@ -37,4 +39,12 @@ public class Account {
 
     @OneToOne(mappedBy = "account")
     private Customer customer;
+
+    public Account(AccountDtoInput accountInput) {
+        this.agency = accountInput.agency();
+        this.number = accountInput.number();
+        this.balance = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN);
+        this.limit = accountInput.limit() == null ? BigDecimal.ZERO : accountInput.limit().setScale(2, RoundingMode.HALF_DOWN);
+        this.availableLimit = BigDecimal.valueOf(accountInput.limit().doubleValue()).setScale(2, RoundingMode.HALF_DOWN);
+    }
 }

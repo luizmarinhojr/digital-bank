@@ -1,5 +1,6 @@
 package com.digital.bank.domain.card;
 
+import com.digital.bank.domain.customer.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +28,7 @@ public class Card {
 
     @Column(nullable = false)
     private LocalDate dateExpiration;
+
+    @OneToOne(mappedBy = "card")
+    private Customer customer;
 }
